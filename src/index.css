@@ -1,0 +1,158 @@
+/* Cancel default styles */
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+button {
+  display: block;
+  cursor: pointer;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input {
+  display: block;
+}
+
+/* App */
+.app {
+  margin: 70px auto 0;
+  width: 80%;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin: 20px auto 0;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+/* Cell  */
+.cell {
+  position: relative;
+  height: 107px;
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 25px 10px 10px;
+}
+
+.cell:nth-child(7n) {
+  border-right: 0;
+}
+.cell:nth-last-child(-n + 7) {
+  border-bottom: 0;
+}
+
+.day {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 10px;
+}
+
+.week-day {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px;
+}
+
+.today {
+  background-color: rgba(90, 255, 142, 0.3);
+}
+
+.other-month {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.events p {
+  font-size: 14px;
+  margin: 2px 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0 10px;
+}
+
+/* Filter */
+
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+}
+
+.arrow {
+  border: 0;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 5px 5px 3px;
+}
+
+.curYM {
+  width: 120px;
+  text-align: center;
+}
+
+/* Interactions */
+
+.interactions {
+  display: flex;
+  align-items: center;
+}
+
+/* Date picker */
+.date-picker {
+  background-color: transparent;
+  padding: 3px 15px 1px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin-left: 15px;
+  transition: background-color linear 250ms;
+}
+
+.date-picker:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Form */
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  width: 500px;
+  padding: 0 40px 10px;
+}
+
+.form button:last-child {
+  width: 100px;
+  margin-left: 20px;
+}
