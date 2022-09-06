@@ -43,7 +43,7 @@ input {
 
 /* App */
 .app {
-  margin: 70px auto 0;
+  margin: 70px auto 20px;
   width: 80%;
 }
 
@@ -95,7 +95,7 @@ input {
 .events p {
   font-size: 14px;
   margin: 2px 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 0 10px;
 }
 

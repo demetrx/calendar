@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { v4 } from 'uuid';
 import { IEvent } from 'types';
 import { useForm } from 'react-hook-form';
 
@@ -9,12 +10,10 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import { v4 } from 'uuid';
 
 interface EventDialogProps {
   heading: string;

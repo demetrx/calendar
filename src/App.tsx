@@ -109,20 +109,25 @@ function App() {
         events={relevantEvents}
         onEventClick={(e: IEvent | null) => setEventToEdit(e)}
       />
-      <EventDialog
-        heading="Add new idea item"
-        onClose={() => setAddOpen(false)}
-        onSave={addEventHandler}
-        isOpened={addOpen}
-      />
-      <EventDialog
-        heading="Edit idea item"
-        event={eventToEdit}
-        onClose={() => setEditOpen(false)}
-        onSave={editEventHandler}
-        onDelete={deleteEventHandler}
-        isOpened={editOpen}
-      />
+
+      {addOpen && (
+        <EventDialog
+          heading="Add new idea item"
+          onClose={() => setAddOpen(false)}
+          onSave={addEventHandler}
+          isOpened={addOpen}
+        />
+      )}
+      {editOpen && (
+        <EventDialog
+          heading="Edit idea item"
+          event={eventToEdit}
+          onClose={() => setEditOpen(false)}
+          onSave={editEventHandler}
+          onDelete={deleteEventHandler}
+          isOpened={editOpen}
+        />
+      )}
     </div>
   );
 }

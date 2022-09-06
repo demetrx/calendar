@@ -25,4 +25,6 @@ export interface IEvent {
   year: number;
   month: number;
   day: number;
+  created?: string;
+  updated?: string;
 }
