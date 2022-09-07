@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { v4 } from 'uuid';
 import { IEvent } from 'types';
 import { useForm } from 'react-hook-form';
+import { getNowFormatted } from 'calc';
 
 // MUI
 import NotesIcon from '@mui/icons-material/Notes';
@@ -10,6 +11,7 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from '@mui/material/Dialog';
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -56,6 +58,7 @@ const EventDialog: FC<EventDialogProps> = ({
 
   const handleSave = ({ date, descr, title, time }: FormInputs) => {
     const [year, month, day] = date.split('-').map((i) => Number(i));
+    const now = getNowFormatted();
 
     onSave({
       id: event?.id || v4(),
@@ -66,6 +69,8 @@ const EventDialog: FC<EventDialogProps> = ({
       year,
       month: month - 1,
       day,
+      created: event?.created || now,
+      updated: event?.created && now,
     });
     reset();
     onClose();
@@ -82,8 +87,15 @@ const EventDialog: FC<EventDialogProps> = ({
       <Dialog open={isOpened} onClose={onClose}>
         <DialogTitle m={'10px 20px'}>{heading}</DialogTitle>
         <form className="form" onSubmit={handleSubmit(handleSave)}>
+          <DialogContentText>
+            {event?.updated
+              ? `Updated at: ${event.updated}`
+              : event?.created
+              ? `Created at: ${event.created}`
+              : ''}
+          </DialogContentText>
           <TextField
-            value={event?.title}
+            defaultValue={event?.title}
             margin="dense"
             error={!!errors.title}
             label="Title *"
@@ -108,7 +120,7 @@ const EventDialog: FC<EventDialogProps> = ({
           />
 
           <TextField
-            value={event?.descr}
+            defaultValue={event?.descr}
             margin="dense"
             label="Description"
             variant="standard"
@@ -121,7 +133,7 @@ const EventDialog: FC<EventDialogProps> = ({
           />
 
           <TextField
-            value={event?.date}
+            defaultValue={event?.date}
             margin="dense"
             error={!!errors.date}
             label="Date *"
@@ -132,7 +144,7 @@ const EventDialog: FC<EventDialogProps> = ({
           />
 
           <TextField
-            value={event?.time}
+            defaultValue={event?.time}
             margin="dense"
             label="Begin time"
             variant="standard"

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Add from 'components/AddBtn/AddBtn';
@@ -23,28 +23,7 @@ function App() {
 
   const isFirstRender = useRef(true);
 
-  const changeMonth = (month: number) => {
-    // prev year
-    if (month === -1) {
-      month = 11;
-      setCurYM((pv) => ({ year: pv.year - 1, month }));
-      return;
-    }
-
-    // next year
-    if (month === 12) {
-      month = 0;
-      setCurYM((pv) => ({ year: pv.year + 1, month }));
-      return;
-    }
-
-    // current year
-    setCurYM((pv) => ({ ...pv, month }));
-  };
-
   useEffect(() => {
-    console.log(eventToEdit);
-
     if (eventToEdit) {
       setEditOpen(true);
     }
@@ -81,18 +60,44 @@ function App() {
     localStorage.setItem(LS_FILTERS_KEY, JSON.stringify(curYM));
   }, [events, curYM]);
 
+  const changeMonth = (month: number) => {
+    // prev year
+    if (month === -1) {
+      month = 11;
+      setCurYM((pv) => ({ year: pv.year - 1, month }));
+      return;
+    }
+
+    // next year
+    if (month === 12) {
+      month = 0;
+      setCurYM((pv) => ({ year: pv.year + 1, month }));
+      return;
+    }
+
+    // current year
+    setCurYM((pv) => ({ ...pv, month }));
+  };
+
   const addEventHandler = (event: IEvent) => {
     setEvents((pv) => [event, ...pv]);
+    toast.success(`Event '${event.title}' added!`);
   };
 
   const deleteEventHandler = (event: IEvent) => {
     setEvents((pv) => pv.filter((e) => e.id !== event.id));
     setEventToEdit(null);
+    toast.success(`Event '${event.title}' deleted!`);
   };
 
   const editEventHandler = (event: IEvent) => {
-    deleteEventHandler(event);
-    addEventHandler(event);
+    setEvents((pv) => [event, ...pv.filter((e) => e.id !== event.id)]);
+    setEventToEdit(null);
+    toast.success(`Event '${event.title}' edited!`);
+  };
+
+  const closeEditHadler = () => {
+    setEditOpen(false);
     setEventToEdit(null);
   };
 
@@ -112,20 +117,20 @@ function App() {
 
       {addOpen && (
         <EventDialog
+          isOpened={addOpen}
           heading="Add new idea item"
           onClose={() => setAddOpen(false)}
           onSave={addEventHandler}
-          isOpened={addOpen}
         />
       )}
       {editOpen && (
         <EventDialog
-          heading="Edit idea item"
-          event={eventToEdit}
-          onClose={() => setEditOpen(false)}
-          onSave={editEventHandler}
-          onDelete={deleteEventHandler}
           isOpened={editOpen}
+          heading="Edit idea item"
+          onClose={closeEditHadler}
+          onSave={editEventHandler}
+          event={eventToEdit}
+          onDelete={deleteEventHandler}
         />
       )}
     </div>

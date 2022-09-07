@@ -97,10 +97,15 @@ input {
   margin: 2px 0;
   background-color: rgba(0, 0, 0, 0.1);
   padding: 0 10px;
+  cursor: pointer;
+  transition: background-color linear 250ms;
+}
+
+.events p:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Filter */
-
 .filter {
   display: flex;
   justify-content: flex-end;
@@ -143,7 +148,6 @@ input {
 }
 
 /* Form */
-
 .form {
   display: flex;
   flex-direction: column;
